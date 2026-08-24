@@ -54,6 +54,7 @@ dependencies = [
     "mistralai>=2.4.4",
     "ffmpeg-python>=0.2.0",
     "ffmpeg>=1.4",
+    "diffusers>=0.40.0",
 ]
 
 [tool.uv.sources]
