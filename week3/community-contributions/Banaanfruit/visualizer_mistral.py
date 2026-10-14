@@ -5,6 +5,7 @@ import math
 from mistralai.client import Mistral
 from dotenv import load_dotenv
 import os
+import requests
 
 load_dotenv(override=True)
 key = os.getenv("MISTRAL_API_KEY")
@@ -21,16 +22,16 @@ class TokenPredictor:
         Generate text token by token and track prediction probabilities.
         Returns list of predictions with top token and alternatives.
         """
-        response = self.client.chat.complete(
-            model=self.model_name,
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=max_tokens,
-            temperature=0,  # Use temperature 0 for deterministic output
-            logprobs=True,
-            random_seed=42,
-            top_n_logprobs=3,  # Get top 3 token predictions
-            stream=True,  # Stream the response
-        )
+        
+        payload = {"model": self.model_name,"messages": [{"role": "user", "content": "Hello"}],"temperature": 0,
+                   "logprobs": True, "top_n_logprobs": 3, "stream": True}
+
+        response = requests.post("https://api.mistral.ai/v1/chat/completions",headers=
+                                 {"Authorization": f"Bearer {key}"},json=payload)
+        
+        self.response = response
+        
+        print(response)
 
         predictions = []
         for chunk in response:
