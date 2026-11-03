@@ -60,6 +60,7 @@ dependencies = [
     "sentencepiece>=0.2.2",
     "timm>=1.0.29",
     "bitsandbytes>=0.50.2",
+    "hf-xet>=1.6.0",
 ]
 
 [tool.uv.sources]
